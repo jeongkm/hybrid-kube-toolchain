@@ -14,7 +14,7 @@ Git 리포지토리에 대한 모든 코드 변경은 Kubernetes 클러스터에
 ![Icon](./pipeline.png)
 
 
-### 시작하려면 이 버튼을 클릭하세요
+### 툴체인을 시작하려면 이 버튼을 클릭하세요
 [![Create toolchain](https://cloud.ibm.com/devops/graphics/create_toolchain_button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https%3A%2F%2Fgithub.com%2Fopen-toolchain%2Fhybrid-kube-toolchain&env_id=ibm:yp:us-south)
 
 
