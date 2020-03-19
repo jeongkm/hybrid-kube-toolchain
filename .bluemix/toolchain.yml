@@ -13,9 +13,9 @@ template:
     - repo
   info:
     git url: >-
-      [https://github.com/open-toolchain/hybrid-kube-toolchain](https://github.com/open-toolchain/hybrid-kube-toolchain)
+      [https://github.com/jeongkm/hybrid-kube-toolchain](https://github.com/jeongkm/hybrid-kube-toolchain)
     git branch: >-
-      [master](https://github.com/open-toolchain/hybrid-kube-toolchain/tree/master)
+      [master](https://github.com/jeongkm/hybrid-kube-toolchain/tree/master)
 toolchain:
   name: 'hybrid-toolchain-{{timestamp}}'
   template:
@@ -29,10 +29,10 @@ services:
       repo_name: 'hello-containers-{{timestamp}}'
       repo_url: >
         $env.type === 'link' ? 
-          $env.app_repo : 'https://github.com/open-toolchain/hello-containers'
+          $env.app_repo : 'https://github.com/jeongkm/hello-containers'
       source_repo_url: >
         $env.type === 'fork' || $env.type === 'clone' ? 
-          $env.app_repo : 'https://github.com/open-toolchain/hello-containers'
+          $env.app_repo : 'https://github.com/jeongkm/hello-containers'
       type: $env.type || 'clone'
       has_issues: true
       enable_traceability: true
