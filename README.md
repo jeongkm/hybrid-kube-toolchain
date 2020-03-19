@@ -13,6 +13,11 @@ Git 리포지토리에 대한 모든 코드 변경은 Kubernetes 클러스터에
 
 ![Icon](./pipeline.png)
 
+
+### 시작하려면 이 버튼을 클릭하세요
+[![Create toolchain](https://cloud.ibm.com/devops/graphics/create_toolchain_button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https%3A%2F%2Fgithub.com%2Fopen-toolchain%2Fhybrid-kube-toolchain&env_id=ibm:yp:us-south)
+
+
 ### Prerequisites
 
 Prod Kubernetes 클러스터에 지속적으로 배포하려면 만료되지 않는 토큰을 가져와야합니다 (즉, 대부분의 사용자 토큰은 수명이 짧고 오래 실행되는 파이프 라인에 적합하지 않습니다). 이는 일반적으로 파이프 라인에서 배포하고 클러스터 관리자가 얻는 영구 서비스 계정 토큰을 사용하여 수행됩니다.
