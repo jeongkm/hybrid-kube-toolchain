@@ -1,4 +1,4 @@
-# ![Icon](./.bluemix/secure-lock-kubernetes.png) Develop a Kubernetes app in hybrid cloud
+# ![Icon](./.bluemix/secure-lock-kubernetes.png) 하이브리드 클라우드에서 Kubernetes 앱 개발
 
 
 ### 퍼블릭 클라우드의 스테이징 환경과 프라이빗 클라우드의 프로덕션 환경에 도커 앱 배포
