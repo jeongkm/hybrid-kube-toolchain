@@ -3,9 +3,6 @@
 
 ### 퍼블릭 클라우드의 스테이징 환경과 프라이빗 클라우드의 프로덕션 환경에 도커 앱 배포
 
-This Hello World application uses Docker with Node.js and includes a DevOps toolchain that is preconfigured for continuous delivery with Vulnerability Advisor, source control, issue tracking, and online editing, and staging deployment to the IBM Cloud Kubernetes Service (IKS) and final production deployment to IBM Cloud Private (ICP) or an 
-Openshift Container Platform (OCP).
-
 이 Hello World 애플리케이션에는 Node.js와 함께 Docker를 사용하며 Vulnerability Advisor, 소스 저장소, 이슈 트래킹 및 온라인 편집이 구성된 DevOps 툴체인이 포함되어 있습니다. 툴체인에 포함된 딜리버리 파이프라인은 IBM Cloud Kubernetes Service (IKS)에 스테이징을 배포하고, 프라이빗 환경에서 있는 OpenShift Container Platform (OCP) 이나 바닐라 Kubernetes 클러스터에 프로덕션 앱을 배포합니다.
 
 ![Icon](./.bluemix/toolchain.png)
