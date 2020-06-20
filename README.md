@@ -4,6 +4,10 @@
 
 IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고, IBM Cloud과 다른 퍼블릭 클라우드 또는 기업 내부 프라이빗 네트워크 환경에도 앱을 배포할 수 있습니다. 
 
+![hybrid-devops-example-concept-diagram](./img/hybrid-devops-example-concept-diagram.png)
+
+
+
 이 튜토리얼에서는 [IBM Cloud Continuous Delivery 서비스](https://cloud.ibm.com/catalog/services/continuous-delivery#about)에서 제공하는 GitLab, Web IDE, 딜리버리 파이프라인, Delivery Pipeline Private Worker로 구성된 오픈 툴체인을 통해 Hello World node.js 앱을 네트워크 격리된 Kubernetes 환경에 배포하는 방법을 소개합니다. 
 
 ![툴체인 예시](./img/toolchain-ko.png)
