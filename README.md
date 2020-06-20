@@ -186,7 +186,7 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
    - 프로덕션 단계의 클러스터 정보에는 "Docker Desktop 및 Kubernetes 클러스터 정보 확인" 단계에서 기록해 둔 마스터 도메인과 포트 번호, 서비스 어카운트 토큰을 입력합니다.
 
-   ![Delivery Pipeline Configuration](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/custom-toolchain-delivery-pipeline.png)
+   ![Delivery Pipeline Configuration](./img/custom-toolchain-delivery-pipeline.png)
 
    
 
@@ -210,7 +210,7 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
 3. PROD (private) 단계의 실패 원인을 확인하기 위해 "Deploy to Kubernetes" 작업의 로그를 확인합니다. 로그 섹션에서 배포 대상 앱의 이미지 이름과 타겟 클러스터에 대한 접속 정보를 확인할 수 있습니다. 
 
-   ![dp-prod-fail-log1](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/dp-prod-fail-log1.png)
+   ![dp-prod-fail-log1](./img/dp-prod-fail-log1.png)
 
    
 
@@ -218,7 +218,7 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
 ​	
 
-![dp-prod-fail-log2](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/dp-prod-fail-log2.png)
+![dp-prod-fail-log2](./img/dp-prod-fail-log2.png)
 
 
 
@@ -244,7 +244,7 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 
    - 서비스 ID API 키 : 예) UPYx-stUyY5CRYa0xxgdSR2EiISU0Apn8UWkPODAlhEH
 
-   ![private-worker-config](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/private-worker-configuration-a.png)
+   ![private-worker-config](./img/private-worker-configuration-a.png)
 
    
 
@@ -278,7 +278,7 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 
 6.  Delivery Pipeline 개인용 작업자의 개요 페이지에서 등록된 작업자를 확인할 수 있습니다.
 
-   ![private-worker-configured](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/private-worker-configured.png)
+   ![private-worker-configured](./img/private-worker-configured.png)
 
     
 
