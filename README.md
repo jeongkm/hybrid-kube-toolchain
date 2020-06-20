@@ -2,7 +2,7 @@
 
 
 
-IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고, IBM Cloud과 다른 퍼블릭 클라우드 또는 기업 내부 프라이빗 네트워크 환경에도 앱을 배포할 수 있습니다. 
+IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고 (①~③), IBM Cloud과 다른 퍼블릭 클라우드 또는 기업 내부 프라이빗 네트워크 환경에도 앱을 배포할 수 있습니다(④~⑦). 
 
 ![hybrid-devops-example-concept-diagram](./img/hybrid-devops-example-concept-diagram.png)
 
