@@ -1,21 +1,21 @@
-# ![Icon](./.bluemix/secure-lock-kubernetes.png) 하이브리드 클라우드에서 Kubernetes 앱 개발
+# IBM Cloud DevOps를 이용해 하이브리드 클라우드에 Kubernetes 앱 배포
 
+### 퍼블릭 클라우드와 프라이빗 클라우드의 Kubernetes 환경에 앱 배포
 
-### 퍼블릭 클라우드의 스테이징 환경과 프라이빗 클라우드의 프로덕션 환경에 도커 앱 배포
+이 튜토리얼에는 Hello World Node.js와 함께 Docker를 사용하며, Vulnerability Advisor, 소스 저장소, 이슈 트래킹 및 온라인 편집이 구성된 DevOps 툴체인이 포함되어 있습니다. 툴체인에 포함된 딜리버리 파이프라인은 IBM Cloud Kubernetes Service (IKS)에 스테이징 앱을 배포하고, 프라이빗 환경에서 있는 Kubernetes 클러스터 또는 OpenShift Container Platform (OCP) 클러스터에 프로덕션 앱을 배포합니다. 프라이빗 환경으로의 앱 배포를 위해 IBM Cloud 프라이빗 딜리버리 파이프라인 도구인 Private Pipeline Worker를 사용하는 과정을 설명합니다.
 
-이 Hello World 애플리케이션에는 Node.js와 함께 Docker를 사용하며 Vulnerability Advisor, 소스 저장소, 이슈 트래킹 및 온라인 편집이 구성된 DevOps 툴체인이 포함되어 있습니다. 툴체인에 포함된 딜리버리 파이프라인은 IBM Cloud Kubernetes Service (IKS)에 스테이징을 배포하고, 프라이빗 환경에서 있는 OpenShift Container Platform (OCP) 이나 바닐라 Kubernetes 클러스터에 프로덕션 앱을 배포합니다.
+>>> 그림 변경 업데이트
+![Icon](./img/toolchain-ko.png)
 
-![Icon](./.bluemix/toolchain.png)
-
-응용 프로그램 코드는 Dockerfile 및 Kubernetes 배포 스크립트와 함께 소스 제어에 저장됩니다.
-대상 클러스터는 툴체인 설정 중에 구성됩니다 (IBM Cloud API 키 및 클러스터 이름 사용). 딜리버리 파이프 라인 구성을 변경하여 나중에 이를 변경할 수 있습니다.
+앱 코드는 Dockerfile 및 Kubernetes 배포 스크립트와 함께 Git 리포지토리([hello-containers](https://github.com/jeongkm/hello-containers)에 저장됩니다.
+앱 배포 대상 클러스터는 툴체인 설정 중에 구성됩니다 (IBM Cloud API 키 및 클러스터 이름 사용). 딜리버리 파이프 라인 구성에서 이를 변경할 수 있습니다.
 Git 리포지토리에 대한 모든 코드 변경은 Kubernetes 클러스터에 자동으로 구축, 검증 및 배포됩니다.
 
-![Icon](./pipeline.png)
+![Icon](./img/pipeline.png)
 
 
 ### 툴체인을 시작하려면 이 버튼을 클릭하세요
-[![Create toolchain](https://cloud.ibm.com/devops/graphics/create_toolchain_button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https%3A%2F%2Fgithub.com%2Fjeongkm%2Fhybrid-kube-toolchain&env_id=ibm:yp:us-south)
+[![툴체인 생성](https://cloud.ibm.com/devops/graphics/create_toolchain_button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https%3A%2F%2Fgithub.com%2Fjeongkm%2Fhybrid-kube-toolchain&env_id=ibm:yp:us-south)
 
 
 ### Prerequisites
