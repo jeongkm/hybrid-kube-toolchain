@@ -1,4 +1,4 @@
-# IBM Cloud DevOps로 퍼블릭 클라우드에서 개발해 온-프레미스 프로덕션 환경에 앱 배포
+# 퍼블릭 클라우드에서 앱 개발해 IBM Cloud DevOps로 온-프레미스 프로덕션 환경에 배포
 
 
 
@@ -50,10 +50,12 @@ IBM Kubernetes 클러스터, 툴체인 등 IBM Cloud 내 서비스 인스턴스�
 IBM Cloud에서 [Kubernetes Cluster 생성 페이지](https://cloud.ibm.com/kubernetes/catalog/create)로 이동합니다. 
 
 1. 무료 플랜을 선택하고, 클러스터 이름을 입력합니다. 기본값은 mycluster-free 입니다.
+   
    - [무료 및 표준 클러스터 비교](https://cloud.ibm.com/docs/containers?topic=containers-cs_ov&locale=ko#cluster_types)
 2. 만들기 버튼을 클릭해 클러스터 생성을 시작합니다. 클러스터 생성이 완료되기 까지 10분 이상 소요됩니다. 
-   - [Kubernetes 클러스터 작성 튜토리얼](https://cloud.ibm.com/docs/containers?topic=containers-cs_cluster_tutorial&locale=ko#cs_cluster_tutorial)
-
+   
+- [Kubernetes 클러스터 작성 튜토리얼](https://cloud.ibm.com/docs/containers?topic=containers-cs_cluster_tutorial&locale=ko#cs_cluster_tutorial)
+   
 3. 클러스터 생성이 진행되는 동안, mycluster-free 클러스터 상세 정보의 액세스 탭을 참고해 IBM CLI 도구를 설치합니다. 
 
    ![IKS Access Tab](./img/iks-access-guide.png)
