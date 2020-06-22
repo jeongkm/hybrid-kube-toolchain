@@ -324,6 +324,16 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 
 
 
+2. 배포 결과 확인 
+
+   ![Deployment to Production Success Log](./img/dp-prod-deploy-success-log.png)
+
+   
+
+3.  배포된 앱의 웹 페이지 확인
+
+   ![dp-prod-app-ui-deployed](./img/dp-prod-app-ui-deployed.png)
+
 ---
 
 
