@@ -1,8 +1,12 @@
-# 퍼블릭 클라우드에서 앱 개발해 IBM Cloud DevOps로 온-프레미스 프로덕션 환경에 배포
+# IBM Cloud DevOps로 온-프레미스 Kubernetes 클러스터에 배포
 
 
 
-IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고 (①②③), IBM Cloud과 다른 퍼블릭 클라우드 또는 기업 내부 프라이빗 네트워크 환경에도 앱을 배포할 수 있습니다(④⑤⑥⑦). 
+IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고 (①②③), IBM Cloud과 다른 퍼블릭 클라우드 또는 인바운트 트래픽이 차단된 기업 내부 네트워크 환경에도 앱을 배포할 수 있습니다(④⑤⑥⑦). 
+
+이 튜토리얼에서는 온-프레미스의 Kubernetes 클러스터 용도로 Docker Desktop의 Kubernetes와 프라이빗 네트워크의 OpenShift Container Platform 클러스터에 앱을 배포하는 과정을 소개합니다.
+
+
 
 ![hybrid-devops-example-concept-diagram](./img/hybrid-devops-example-concept-diagram.png)
 
@@ -55,7 +59,7 @@ IBM Cloud에서 [Kubernetes Cluster 생성 페이지](https://cloud.ibm.com/kube
 2. 만들기 버튼을 클릭해 클러스터 생성을 시작합니다. 클러스터 생성이 완료되기 까지 10분 이상 소요됩니다. 
    
 - [Kubernetes 클러스터 작성 튜토리얼](https://cloud.ibm.com/docs/containers?topic=containers-cs_cluster_tutorial&locale=ko#cs_cluster_tutorial)
-   
+  
 3. 클러스터 생성이 진행되는 동안, mycluster-free 클러스터 상세 정보의 액세스 탭을 참고해 IBM CLI 도구를 설치합니다. 
 
    ![IKS Access Tab](./img/iks-access-guide.png)
@@ -74,7 +78,7 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
 
 
-### Docker Desktop 및 Kubernetes 클러스터 정보 확인
+### Docker Desktop의 Kubernetes 클러스터 정보 확인
 
 이 튜토리얼에서는 프라이빗 Kubernetes 클러스터 환경으로 개인용 랩탑을 사용합니다.  [Docker Desktop을 설치](https://www.docker.com/products/docker-desktop)하고, Docker UI에서 [Kubernetes 기능을 활성화](https://docs.docker.com/docker-for-windows/kubernetes/)시킵니다. 로컬 Kubernetes 환경 구성을 준비하고 튜토리얼 진행에 필요한 정보를 확인합니다.
 
@@ -123,7 +127,7 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
    
 
-5. (선택사항) 로컬 Kubernetes에 대시보드 UI를 설치합니다. 
+5. (선택 사항) 로컬 Kubernetes에 대시보드 UI를 설치합니다. 
 
    ```shell
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
@@ -135,6 +139,55 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
      - 로그인할 때 4번 단계에서 확인한 서비스 어카운트 토큰을 입력하세요.
 
 
+
+### (선택 사항) 프라이빗 네트워크의 OCP 클러스터 정보 확인
+
+프라이빗 Kubernetes 클러스터 환경으로 RedHat OpenShift Container Platform을 사용합니다. 테스트 용도로 랩탑에 [MiniShift](https://www.okd.io/minishift/)나 [RedHat](https://www.openshift.com/try)이 제공하는 무료 클러스터를 이용하셔도 됩니다. 단, Private Worker를 설치하시려면 [Kubernetes 클러스터 버전 1.15 이상](https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers#pw_install_prereqs)이 필요합니다.
+
+1. OCP 클러스터에 접근 가능한 작업 환경의 CLI에서 Login Command를 입력해 로그인합니다.
+
+   ```bash
+   oc login --token=<token> --server=https://<OCP MASTER URL>:6443
+   ```
+
+   
+
+2. OCP Master의 도메인과 포트 번호를 확인합니다.
+
+   - 도메인 : api.openshift.ibm.com
+   - 포트 : 6443
+
+   ```bash
+   oc cluster-info
+   
+   # 아래는 명령어 실행 결과입니다.
+   Kubernetes master is running at https://api.openshift.ibm.com:6443
+   To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'
+   ```
+
+   
+
+3. 클러스터에 프로덕션 용 프로젝트를 ocp-prod 라는 이름으로 생성합니다.
+
+   ```bash
+   oc new-project ocp-prod
+   ```
+
+   
+
+4. OCP 클러스터에 앱을 배포할 때 사용할 서비스 어카운트 토큰 (Service Account Token)을 확인하고, default 서비스 어카운트에 admin 권한을 부여합니다. 
+
+   ```bash
+   CLUSTER_NAMESPACE=ocp-prod
+   SERVICE_ACCOUNT_NAME=default
+   oc project ${CLUSTER_NAMESPACE}
+   SERVICE_ACCOUNT_TOKEN=$(oc serviceaccounts get-token $SERVICE_ACCOUNT_NAME)
+   echo ${SERVICE_ACCOUNT_TOKEN}
+   
+   oc create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUSTER_NAMESPACE}:${SERVICE_ACCOUNT_NAME} --namespace=${CLUSTER_NAMESPACE}
+   ```
+
+   
 
 ---
 
@@ -258,11 +311,11 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 
 4. 개인용 작업자 설정 및 구성을 위해 2단계에서 확인한 서비스 ID API 키를 입력하고 제출 버튼을 클릭합니다.
 
-   ![private-worker-configuration](./img/private-worker-configuration1.png)
+   ![private-worker-configuration1](./img/private-worker-configuration1.png)
 
    
 
-5.  **개인용 작업자 새로 추가** 섹션의 명령어를 로컬 Kubernetes에 대해 실행합니다. 
+5. **개인용 작업자 새로 추가** 섹션의 명령어를 로컬 Kubernetes에 대해 실행합니다. 
 
    ![private-worker-configuration2](./img/private-worker-configuration2.png) 
 
@@ -278,13 +331,13 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 
      
 
-6.  Delivery Pipeline 개인용 작업자의 개요 페이지에서 등록된 작업자를 확인할 수 있습니다.
+6. Delivery Pipeline 개인용 작업자의 개요 페이지에서 등록된 작업자를 확인할 수 있습니다.
 
    ![private-worker-configured](./img/private-worker-configured.png)
 
     
 
-7.  개인용 작업자는 외부에서 접근이 불가하고 인터넷 접근을 가능한 (Inbound block, Outbound allow) 프라이빗 네트워크에서 일정 주기로 IBM Cloud Delivery Pipeline의 작업 큐에 접근해 CI/CD 태스크를 다운로드 받아 실행합니다. 
+7. 개인용 작업자는 외부에서 접근이 불가하고 인터넷 접근을 가능한 (Inbound block, Outbound allow) 프라이빗 네트워크에서 일정 주기로 IBM Cloud Delivery Pipeline의 작업 큐에 접근해 CI/CD 태스크를 다운로드 받아 실행합니다. 
 
 
 
@@ -324,17 +377,99 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 
 
 
-2. 배포 결과 확인 
+2. Deploy to Kubernetes 작업의 완료되면 로그에서 배포 결과를 확인합니다.
 
    ![Deployment to Production Success Log](./img/dp-prod-deploy-success-log.png)
 
    
 
-3.  배포된 앱의 웹 페이지 확인
+3.  배포된 앱의 웹 페이지를 확인합니다.
 
    ![dp-prod-app-ui-deployed](./img/dp-prod-app-ui-deployed.png)
 
 ---
+
+
+
+## (선택 사항) OpenShift Container Platform 클러스터에 앱 배포
+
+
+
+OCP 클러스터에 설치할 Delivery Pipeline 개인용 작업자 도구 통합을 추가하고, OPC 클러스터에 Private Worker를 설치합니다. 그런 다음 기존 딜리버리 파이프라인에 OCP 클러스터로 앱을 배포하는 단계를 추가합니다.
+
+
+
+1. [Private Worker 도구 통합 작성]() 과 같은 방식으로 개인용 작업자를 추가합니다. 
+
+2. 개인용 작업자 생성 후, 서비스 ID API 키와 Worker Name 를 입력해 설치 명령어를 확인합니다.
+
+   ![Onprem OCP Pipeline Worker Configuration](./img/onprem-ocp-ppw-config.png)
+
+
+
+3. OpenShift는 컨테이너 엔진으로 Docker대신 [CRI-O](https://cri-o.io/)를 사용합니다. CRI-O는 이미지 풀링 시, 이미지 태그와 다이제스트 중 하나만 사용해야 합니다. 이 [문서](https://github.com/tektoncd/pipeline/blob/master/docs/install.md)를 참고하세요. 이 튜토리얼에서는 Deployment.yaml에 포함된 이미지 이름에서 다이제스트를 모두 제거한 뒤, Private Worker CRD (Custom Resource Definition)을 생성합니다.
+
+   ```bash
+   wget https://private-worker-service.us-south.devops.cloud.ibm.com/install
+   vi install
+   
+   # 아래의 정규표현식을 적용해 다이제스트를 모두 제거합니다.
+   # %s/@sha256:[a-z0-9]*//g
+   
+   # 이미지 이름 예: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/controller:v0.11.2@sha256:0791513ec1176da38c403eb81220406e987f78f3e58608bd57be1adc45bc9aac
+   
+   # 다이제스트 제거 결과 : gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/controller:v0.11.2
+   ```
+
+   
+
+4. Private Worker CRD를 설치하고, 새 작업자를 등록합니다.
+
+   ```bash
+   oc apply --filename install
+   
+   oc adm policy add-scc-to-user anyuid system:serviceaccount:tekton-pipelines:tekton-pipelines-controller
+   
+   oc project tekton-pipelines
+   
+   oc apply --filename "https://private-worker-service.us-south.devops.cloud.ibm.com/install/worker?serviceId=<service-id>&apikey=<apikey>&name=<worker name>"
+   
+   oc get workeragent
+   ```
+
+   
+
+5. IBM Cloud 개인용 작업자 개요 페이지에서 등록된 작업자 풀에 위에서 등록한 작업자 이름을 확인합니다.
+
+6. 딜리버리 파이프라인의 PROD 배포 단계를 복제해 OCP 용 PROD 배포 단계를 구성합니다.
+
+   ![Replicate PROD stage](./img/dp-prod-replication.png)
+
+
+
+7. PROD 단계 구성에서 작업자를 새로운 개인용 작업자로 변경합니다.
+
+![Private Worker for Onprem OCP](./img/dp-prod-ocp-private-worker.png)
+
+
+
+8. PROD 단계 구성-환경 특성에서 Cluster Namespace, Master Address, Service Account Token를 변경합니다.
+
+   ![On-prem OCP Environment](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/dp-prod-ocp-environment.png)
+
+   
+
+9. 새로 추가된 PROD 단계를 시작합니다.
+
+   ![Start deploying to OCP](./img/dp-prod-ocp-deploy-start.png)
+
+
+
+10. 배포된 앱의 웹 페이지를 확인합니다.
+
+    ![Deployed Web Page - OCP](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/dp-prod-deploy-ocp-web.png)
+
+
 
 
 
@@ -347,6 +482,8 @@ Delivery Pipeline 개인용 작업자 도구 통합은 네트워크 격리 상�
 ## 참고
 
 - 튜토리얼 원문 : https://www.ibm.com/cloud/architecture/tutorials/devops-toolchain-integration
+
+- Delivery Pipeline Private Worker 설치 : https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers#open_shift_pw_
 
 - IBM Cloud Continuous Delivery 소개 : https://www.ibm.com/kr-ko/cloud/continuous-delivery
 
