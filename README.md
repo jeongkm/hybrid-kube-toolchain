@@ -1,5 +1,4 @@
-# IBM Cloud DevOps로 온-프레미스 Kubernetes 클러스터에 배포
-
+# IBM Cloud DevOps로 온-프레미스 Kubernetes 클러스터에 앱  배포
 
 
 IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고 (①②③), IBM Cloud과 다른 퍼블릭 클라우드 또는 인바운트 트래픽이 차단된 기업 내부 네트워크 환경에도 앱을 배포할 수 있습니다(④⑤⑥⑦). 
@@ -399,7 +398,7 @@ OCP 클러스터에 설치할 Delivery Pipeline 개인용 작업자 도구 통�
 
 
 
-1. [Private Worker 도구 통합 작성]() 과 같은 방식으로 개인용 작업자를 추가합니다. 
+1. [Private Worker 도구 통합 작성](#delivery-pipeline-private-worker-구성) 과 같은 방식으로 개인용 작업자를 추가합니다. 
 
 2. 개인용 작업자 생성 후, 서비스 ID API 키와 Worker Name 를 입력해 설치 명령어를 확인합니다.
 
