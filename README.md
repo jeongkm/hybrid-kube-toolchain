@@ -1,9 +1,6 @@
 # IBM Cloud DevOps로 온-프레미스 Kubernetes 클러스터에 앱  배포
 
-
-IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고 (①②③), IBM Cloud과 다른 퍼블릭 클라우드 또는 인바운트 트래픽이 차단된 기업 내부 네트워크 환경에도 앱을 배포할 수 있습니다(④⑤⑥⑦). 
-
-이 튜토리얼에서는 온-프레미스의 Kubernetes 클러스터 용도로 Docker Desktop의 Kubernetes와 프라이빗 네트워크의 OpenShift Container Platform 클러스터에 앱을 배포하는 과정을 소개합니다.
+IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 활용하면 프로덕션 환경이 어디에 있든지 상관 없습니다. 프로젝트 팀은 퍼블릭 클라우드에서 DevOps 환경을 몇 분 이내에 구축해 개발과 테스트를 일찍 시작하고 (①②③), IBM Cloud과 다른 퍼블릭 클라우드(④⑤) 또는 인바운트 트래픽이 차단된 기업 내부 네트워크 환경에도 앱을 배포할 수 있습니다(⑥⑦). 
 
 
 
@@ -11,7 +8,11 @@ IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 �
 
 
 
-이 튜토리얼에서는 [IBM Cloud Continuous Delivery 서비스](https://cloud.ibm.com/catalog/services/continuous-delivery#about)에서 제공하는 GitLab, Web IDE, 딜리버리 파이프라인, Delivery Pipeline Private Worker로 구성된 오픈 툴체인을 통해 Hello World node.js 앱을 네트워크 격리된 Kubernetes 환경에 배포하는 방법을 소개합니다. 
+이 튜토리얼에서는 온-프레미스의 Kubernetes 클러스터 용도로 Docker Desktop의 Kubernetes와 프라이빗 네트워크의 OpenShift Container Platform 클러스터에 앱을 배포하는 과정을 소개합니다. 
+
+[IBM Cloud Continuous Delivery 서비스](https://cloud.ibm.com/catalog/services/continuous-delivery#about)에서 제공하는 GitLab, Web IDE, 딜리버리 파이프라인, Delivery Pipeline Private Worker로 구성된 오픈 툴체인을 통해 Hello World node.js 앱을 네트워크 격리된 Kubernetes 환경에 배포합니다. 
+
+
 
 ![툴체인 예시](./img/toolchain-ko.png)
 
@@ -26,6 +27,53 @@ IBM Cloud Continuous Delivery 서비스와 Delivery Pipeline Private Worker를 �
 
 
 ---
+
+## 목차
+
+
+
+ [사전 작업](#사전-작업)
+
+- [IBM Cloud 가입](#ibm-cloud-가입) 
+- [IBM Cloud 계정 내 리소스 그룹 생성](#ibm-cloud-계정-내-리소스-그룹-생성)
+
+- [IBM Kubernetes 무료 클러스터 생성](#ibm-kubernetes-무료-클러스터-생성)
+
+- [IBM Registry에 네임스페이스 생성](#ibm-registry에-네임스페이스-생성)
+
+-  [Docker Desktop의 Kubernetes 클러스터 정보 확인](#docker-desktop의-kubernetes-클러스터-정보-확인)
+
+-  [(선택 사항) 프라이빗 네트워크의 OCP 클러스터 정보 확인](#선택-사항-프라이빗-네트워크의-ocp-클러스터-정보-확인)
+
+ [툴체인 시작](#툴체인-시작)
+
+- [툴체인 구성](#툴체인-구성)
+
+- [툴체인  확인](#툴체인--확인)
+
+[Delivery Pipeline Private Worker 구성](#delivery-pipeline-private-worker-구성)
+
+-  [Private Worker 도구 통합 작성](#private-worker-도구-통합-작성)
+
+[프로덕션 배포 단계 구성](#프로덕션-배포-단계-구성)
+
+-  [단계 구성 열기](#단계-구성-열기)
+
+- [작업자 변경](#작업자-변경)
+
+- [배포 재시작](#배포-재시작)
+
+- [(선택 사항) OpenShift Container Platform 클러스터에 앱 배포](#선택-사항-openshift-container-platform-클러스터에-앱-배포)
+
+[요약](#요약)
+
+[참고](#참고)
+
+
+
+---
+
+
 
 ## 사전 작업
 
