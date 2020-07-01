@@ -502,7 +502,7 @@ OCP 클러스터에 설치할 Delivery Pipeline 개인용 작업자 도구 통�
 
 8. PROD 단계 구성-환경 특성에서 Cluster Namespace, Master Address, Service Account Token를 변경합니다.
 
-   ![On-prem OCP Environment](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/dp-prod-ocp-environment.png)
+   ![On-prem OCP Environment](./img/dp-prod-ocp-environment.png)
 
    
 
@@ -514,7 +514,7 @@ OCP 클러스터에 설치할 Delivery Pipeline 개인용 작업자 도구 통�
 
 10. 배포된 앱의 웹 페이지를 확인합니다.
 
-    ![Deployed Web Page - OCP](/Users/qmin/Workspace/documentation/hybrid-kube-toolchain/img/dp-prod-deploy-ocp-web.png)
+    ![Deployed Web Page - OCP](./img/dp-prod-deploy-ocp-web.png)
 
 
 
