@@ -162,15 +162,26 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
 4. 로컬 Kubernetes 클러스터에 앱을 배포할 때 사용할 서비스 어카운트 토큰 (Service Account Token)을 확인합니다. 
 
+   - 필요한 유틸리티 : jq (json parsor) - 구글 검색 ([jq 설치](https://www.google.com/search?sxsrf=ALeKk03ZozWMusUkxmgLnBIVOQrIuL9aAw%3A1593666084515&source=hp&ei=JGr9XvqsHYnrwQPLrYToCw&q=jq+%EC%84%A4%EC%B9%98&oq=jq+%EC%84%A4%EC%B9%98&gs_lcp=CgZwc3ktYWIQAzICCAAyBggAEAUQHjIGCAAQBRAeMgYIABAFEB4yBggAEAUQHjIGCAAQBRAeMgYIABAFEB4yBggAEAUQHjoECCMQJzoFCAAQsQM6BAgAEApQqQJY0QpguAtoAHAAeACAAYgBiAHFBpIBAzAuN5gBAKABAaoBB2d3cy13aXo&sclient=psy-ab&ved=0ahUKEwj6zuzm5K3qAhWJdXAKHcsWAb0Q4dUDCAY&uact=5))
+   - bash, zsh 쉘 용 명령어
+
    ```bash
    SERVICE_ACCOUNT_NAME=default
-   CLUSTER_NAMESPACE=prod
-   SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[0].name)
+   CLUSTER_NAMESPACE=lab40
+   SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r '.secrets[0].name')
    SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -d)
    echo ${SERVICE_ACCOUNT_TOKEN}
    ```
 
-   - MacOS zsh 사용자는 bash shell로 위 명령어를 실행하세요.
+   - PowerShell 용 명령
+
+   ```powershell
+   $SERVICE_ACCOUNT_NAME="default"
+   $CLUSTER_NAMESPACE="prod"
+   $SECRET_NAME=$(kubectl get sa $SERVICE_ACCOUNT_NAME --namespace=$CLUSTER_NAMESPACE -o json | jq -r .secrets[0].name)
+   $SERVICE_ACCOUNT_TOKEN=$(kubectl get secret $SECRET_NAME --namespace $CLUSTER_NAMESPACE -o jsonpath='{.data.token}')
+   [Text.Encoding]::Utf8.GetString([Convert]::FromBase64String($SERVICE_ACCOUNT_TOKEN))
+   ```
 
    
 
@@ -270,7 +281,7 @@ IBM Registry는 IBM Kubernetes Service와 같이 사용되는 도커 이미지 �
 
 2. 이 튜토리얼에서는 소스 제공자로 IBM Continuous Delivery Service에 포함되어 있는 GitLab 기반의 Git 저장소 및 문제 추적 (Git Repos and Issues)를 사용합니다.  GitHub, Enterprise GitHub, GitLab, Bitbucket 등 다른 Git 서버를 사용해도 됩니다. 
 
-   - 저장소 이름을 변경합니다. 저장소 이름은 Delivery Pipeline 구성 단계에서 애플리케이션 이름으로도 상요됩니다. 
+   - 저장소 이름을 변경합니다. 저장소 이름은 Delivery Pipeline 구성 단계에서 애플리케이션 이름으로도 사용됩니다. 
 
    ![Tool Integration - Git Repo](./img/custom-toolchain-tool-integration-git.png)
 
@@ -538,4 +549,12 @@ OCP 클러스터에 설치할 Delivery Pipeline 개인용 작업자 도구 통�
 
 - Open Toolchain Github : https://github.com/open-toolchain
 
-  
+
+
+
+## 보강
+
+1. 파워쉘용 스크립트
+2. jq 설치 안내
+3. jq -r '.secrets[0].name'
+
